@@ -1,0 +1,17 @@
+{
+  "name": "tatecarroll.com",
+  "version": "1.0.0",
+  "description": "Tate Carroll - An 80s Love Commercial for Code",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Tate Carroll",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.183.2",
+    "vite": "^8.0.3"
+  }
+}
