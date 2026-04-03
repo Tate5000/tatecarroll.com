@@ -6,7 +6,8 @@ import * as THREE from 'three';
 
 let scene, camera, renderer, hearts = [];
 let heartGeometry;
-const HEART_COUNT = 60;
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const HEART_COUNT = isMobile ? 20 : 60;
 
 function createHeartShape() {
   const shape = new THREE.Shape();
@@ -328,12 +329,26 @@ function startFloatingHearts() {
     heart.addEventListener('animationend', () => heart.remove());
   }
 
-  // Spawn hearts continuously
-  setInterval(spawnHeart, 400);
+  // Spawn hearts continuously — more on mobile since 3D hearts are reduced
+  const spawnRate = isMobile ? 300 : 400;
+  setInterval(spawnHeart, spawnRate);
 
   // Initial burst
   for (let i = 0; i < 15; i++) {
     setTimeout(spawnHeart, i * 200);
+  }
+
+  // Fallback: use requestAnimationFrame to keep spawning if setInterval gets throttled
+  if (isMobile) {
+    let lastSpawn = 0;
+    function mobileHeartLoop(timestamp) {
+      if (timestamp - lastSpawn > spawnRate) {
+        spawnHeart();
+        lastSpawn = timestamp;
+      }
+      requestAnimationFrame(mobileHeartLoop);
+    }
+    requestAnimationFrame(mobileHeartLoop);
   }
 }
 
