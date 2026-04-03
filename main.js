@@ -248,6 +248,9 @@ function setupEnterScreen() {
       }, 7000);
     }, 1500);
 
+    // Start floating CSS hearts
+    startFloatingHearts();
+
     // Play music
     playMusic();
 
@@ -300,6 +303,38 @@ function setupScrollAnimations() {
     section.classList.add('fade-in-section');
     observer.observe(section);
   });
+}
+
+// ============================================
+// FLOATING CSS HEARTS (rain throughout page)
+// ============================================
+
+function startFloatingHearts() {
+  const hearts = ['♥', '♡', '❤', '💕', '💗'];
+  const colors = ['#ff2d95', '#ff69b4', '#ff1493', '#b026ff', '#ff6b9d', '#ff0066'];
+
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (12 + Math.random() * 24) + 'px';
+    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+    heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+    heart.style.animationDelay = '0s';
+    heart.style.opacity = 0.3 + Math.random() * 0.5;
+    document.body.appendChild(heart);
+
+    heart.addEventListener('animationend', () => heart.remove());
+  }
+
+  // Spawn hearts continuously
+  setInterval(spawnHeart, 400);
+
+  // Initial burst
+  for (let i = 0; i < 15; i++) {
+    setTimeout(spawnHeart, i * 200);
+  }
 }
 
 // ============================================

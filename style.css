@@ -951,6 +951,39 @@ body {
 }
 
 /* ============================================
+   FLOATING HEARTS (rain throughout page)
+   ============================================ */
+
+.floating-heart {
+  position: fixed;
+  top: -5%;
+  z-index: 8;
+  pointer-events: none;
+  animation: heart-fall linear forwards;
+  text-shadow: 0 0 6px currentColor;
+}
+
+@keyframes heart-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: var(--start-opacity, 0.5);
+  }
+  25% {
+    transform: translateY(25vh) rotate(90deg) translateX(30px) scale(0.9);
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(-20px) scale(1.1);
+  }
+  75% {
+    transform: translateY(75vh) rotate(270deg) translateX(15px) scale(0.8);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(-10px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ============================================
    MUSIC CONTROLS
    ============================================ */
 
