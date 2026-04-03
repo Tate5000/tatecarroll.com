@@ -385,36 +385,68 @@ function setupKissSound() {
 
   function playKiss() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = audioCtx.currentTime;
 
-    // White noise burst for the "smack"
-    const duration = 0.08;
-    const bufferSize = audioCtx.sampleRate * duration;
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
+    // Part 1: soft lip suction (rising tone)
+    const osc1 = audioCtx.createOscillator();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(800, now);
+    osc1.frequency.exponentialRampToValueAtTime(2000, now + 0.06);
 
-    for (let i = 0; i < bufferSize; i++) {
-      // Shaped noise burst that sounds like a kiss/smack
-      const t = i / bufferSize;
-      const envelope = Math.sin(t * Math.PI); // smooth rise and fall
-      data[i] = (Math.random() * 2 - 1) * envelope * 0.3;
+    const gain1 = audioCtx.createGain();
+    gain1.gain.setValueAtTime(0, now);
+    gain1.gain.linearRampToValueAtTime(0.15, now + 0.02);
+    gain1.gain.linearRampToValueAtTime(0, now + 0.06);
+
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start(now);
+    osc1.stop(now + 0.06);
+
+    // Part 2: the "mwah" pop/release
+    const popDuration = 0.12;
+    const popSize = audioCtx.sampleRate * popDuration;
+    const popBuffer = audioCtx.createBuffer(1, popSize, audioCtx.sampleRate);
+    const popData = popBuffer.getChannelData(0);
+
+    for (let i = 0; i < popSize; i++) {
+      const t = i / popSize;
+      // Quick attack, longer decay — like lips pulling apart
+      const envelope = t < 0.15 ? (t / 0.15) : Math.pow(1 - ((t - 0.15) / 0.85), 2);
+      popData[i] = (Math.random() * 2 - 1) * envelope * 0.25;
     }
 
-    const source = audioCtx.createBufferSource();
-    source.buffer = buffer;
+    const popSource = audioCtx.createBufferSource();
+    popSource.buffer = popBuffer;
 
-    // Bandpass filter to make it sound more like lips
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 2500;
-    filter.Q.value = 1.5;
+    const popFilter = audioCtx.createBiquadFilter();
+    popFilter.type = 'bandpass';
+    popFilter.frequency.value = 3000;
+    popFilter.Q.value = 2;
 
-    const gain = audioCtx.createGain();
-    gain.gain.value = 0.4;
+    const popGain = audioCtx.createGain();
+    popGain.gain.value = 0.5;
 
-    source.connect(filter);
-    filter.connect(gain);
-    gain.connect(audioCtx.destination);
-    source.start();
+    popSource.connect(popFilter);
+    popFilter.connect(popGain);
+    popGain.connect(audioCtx.destination);
+    popSource.start(now + 0.05);
+
+    // Part 3: subtle high "smooch" ring
+    const osc2 = audioCtx.createOscillator();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(3500, now + 0.05);
+    osc2.frequency.exponentialRampToValueAtTime(1500, now + 0.18);
+
+    const gain2 = audioCtx.createGain();
+    gain2.gain.setValueAtTime(0, now + 0.05);
+    gain2.gain.linearRampToValueAtTime(0.08, now + 0.07);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start(now + 0.05);
+    osc2.stop(now + 0.18);
   }
 
   document.addEventListener('click', playKiss);
