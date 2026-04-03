@@ -900,35 +900,29 @@ body {
     grid-template-columns: 1fr;
   }
 
-  /* Reduce neon glow on mobile — too blurry on small screens */
+  /* Subtle neon glow on mobile — readable but still glowy */
   .neon-text {
-    text-shadow:
-      0 0 5px var(--neon-blue),
-      0 0 10px var(--neon-blue);
+    text-shadow: 0 0 4px var(--neon-blue);
   }
 
   .neon-text.pink, .neon-pink {
-    text-shadow:
-      0 0 5px var(--neon-pink),
-      0 0 10px var(--neon-pink);
+    text-shadow: 0 0 4px var(--neon-pink);
   }
 
   .enter-title {
-    text-shadow:
-      0 0 8px var(--neon-pink),
-      0 0 15px var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink);
   }
 
   .hero-name .neon-text {
-    text-shadow:
-      0 0 5px var(--neon-blue),
-      0 0 12px var(--neon-blue);
+    text-shadow: 0 0 4px var(--neon-blue);
   }
 
   .hero-name .neon-text.pink {
-    text-shadow:
-      0 0 5px var(--neon-pink),
-      0 0 12px var(--neon-pink);
+    text-shadow: 0 0 4px var(--neon-pink);
+  }
+
+  .badge-clearance {
+    text-shadow: 0 0 4px var(--neon-pink);
   }
 
   .section-title {
@@ -943,10 +937,34 @@ body {
     font-size: clamp(18px, 4vw, 36px);
   }
 
-  .badge-clearance {
-    text-shadow:
-      0 0 5px var(--neon-pink),
-      0 0 10px var(--neon-pink);
+  /* Fix hero layout on mobile */
+  #hero {
+    min-height: auto;
+    padding: 60px 16px;
+  }
+
+  .hero-name {
+    font-size: clamp(28px, 10vw, 50px);
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(13px, 2.5vw, 20px);
+  }
+
+  .hero-aside {
+    font-size: clamp(14px, 2vw, 18px);
+    margin-right: 5%;
+  }
+
+  .hero-cta .retro-btn {
+    padding: 12px 24px;
+    font-size: 10px;
+  }
+
+  .enter-title {
+    font-size: clamp(22px, 8vw, 48px);
+    letter-spacing: 2px;
   }
 }
 
