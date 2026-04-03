@@ -376,10 +376,56 @@ function setupCursorHearts() {
 }
 
 // ============================================
+// KISS SOUND ON CLICK
+// ============================================
+
+function setupKissSound() {
+  // Generate a short kiss "smack" sound using Web Audio API
+  let audioCtx;
+
+  function playKiss() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // White noise burst for the "smack"
+    const duration = 0.08;
+    const bufferSize = audioCtx.sampleRate * duration;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      // Shaped noise burst that sounds like a kiss/smack
+      const t = i / bufferSize;
+      const envelope = Math.sin(t * Math.PI); // smooth rise and fall
+      data[i] = (Math.random() * 2 - 1) * envelope * 0.3;
+    }
+
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+
+    // Bandpass filter to make it sound more like lips
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 2500;
+    filter.Q.value = 1.5;
+
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.4;
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+    source.start();
+  }
+
+  document.addEventListener('click', playKiss);
+}
+
+// ============================================
 // INIT
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
   setupEnterScreen();
   setupCursorHearts();
+  setupKissSound();
 });
