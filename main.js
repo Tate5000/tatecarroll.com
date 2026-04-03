@@ -390,22 +390,6 @@ function setupCursorHearts() {
   });
 }
 
-// ============================================
-// KISS SOUND ON CLICK
-// ============================================
-
-function setupKissSound() {
-  const kissAudio = new Audio('/kiss.mp3');
-  kissAudio.preload = 'auto';
-
-  function playKiss() {
-    const sound = kissAudio.cloneNode();
-    sound.volume = 0.5;
-    sound.play().catch(() => {});
-  }
-
-  document.addEventListener('click', playKiss);
-}
 
 // ============================================
 // INIT
@@ -414,5 +398,4 @@ function setupKissSound() {
 document.addEventListener('DOMContentLoaded', () => {
   setupEnterScreen();
   setupCursorHearts();
-  setupKissSound();
 });
