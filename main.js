@@ -214,6 +214,27 @@ function isMusicPlaying() {
 }
 
 // ============================================
+// ENTRY GATE - "Are you lame?" self-select
+// ============================================
+
+function setupEntryGate() {
+  const gate = document.getElementById('entry-gate');
+  if (!gate) return;
+
+  // The gate shows on every visit — no persistence, no skipping.
+  const dismissGate = () => {
+    gate.classList.add('fade-out');
+    setTimeout(() => { gate.style.display = 'none'; }, 600);
+  };
+
+  document.getElementById('gate-cool').addEventListener('click', dismissGate);
+
+  document.getElementById('gate-lame').addEventListener('click', () => {
+    window.location.href = '/serious';
+  });
+}
+
+// ============================================
 // ENTER SCREEN
 // ============================================
 
@@ -396,6 +417,7 @@ function setupCursorHearts() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  setupEntryGate();
   setupEnterScreen();
   setupCursorHearts();
 });
