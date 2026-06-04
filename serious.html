@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tate Carroll — AI Systems Architect & Head of Engineering</title>
+  <meta name="description" content="Tate Carroll — AI Systems Architect and Head of Engineering. Production AI systems for defense, healthcare, and fintech. USAF Cyber Warfare distinguished graduate. TS/SCI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #161a22;
+      --border: #262d3a;
+      --text: #e6e9ef;
+      --muted: #9aa3b2;
+      --accent: #4f7cff;
+      --accent-soft: rgba(79, 124, 255, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top bar */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 17, 21, 0.85);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .topbar .brand { font-weight: 700; letter-spacing: 0.2px; }
+    .topbar .back-link {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .topbar .back-link:hover { color: var(--accent); }
+
+    /* Header */
+    header.hero {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    header.hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    header.hero .title {
+      color: var(--accent);
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    header.hero .summary {
+      color: var(--muted);
+      max-width: 680px;
+      margin-top: 18px;
+      font-size: 17px;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-top: 22px;
+      font-size: 15px;
+    }
+    .contact-row span { color: var(--muted); }
+
+    .cta {
+      display: inline-block;
+      margin-top: 26px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 8px;
+    }
+    .cta:hover { background: #3d68e6; text-decoration: none; }
+
+    /* Sections */
+    section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+    h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    /* Experience */
+    .role {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 20px;
+      padding: 18px 0;
+    }
+    .role + .role { border-top: 1px solid var(--border); }
+    .role .when { color: var(--muted); font-size: 14px; padding-top: 2px; }
+    .role h3 { font-size: 18px; font-weight: 600; }
+    .role .org { color: var(--accent); font-weight: 500; }
+    .role ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
+    .role ul li { margin-bottom: 6px; }
+
+    /* Skills / certs */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .card h3 { font-size: 15px; margin-bottom: 12px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 13px;
+      color: var(--text);
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+    .cert-list { list-style: none; }
+    .cert-list li {
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-list li:last-child { border-bottom: none; }
+
+    .also {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 6px;
+    }
+    .also strong { color: var(--text); font-weight: 600; }
+
+    footer {
+      padding: 34px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .role { grid-template-columns: 1fr; gap: 4px; }
+      .role .when { padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <span class="brand">Tate Carroll</span>
+      <a class="back-link" href="/">← Back to the fun version</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <header class="hero">
+      <h1>Tate Carroll</h1>
+      <div class="title">AI Systems Architect &amp; Head of Engineering</div>
+      <p class="summary">
+        I build production AI systems that work in the real world — under demanding
+        performance, reliability, and compliance constraints across defense, healthcare,
+        and fintech. I take ambiguous or failing initiatives and ship secure, dependable
+        systems quickly, aligning model architecture, hardware constraints, and cloud
+        deployment along the way.
+      </p>
+      <div class="contact-row">
+        <a href="mailto:Davidtatecarroll@outlook.com">Davidtatecarroll@outlook.com</a>
+        <a href="https://linkedin.com/in/davidtatecarroll" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/tate5000" target="_blank" rel="noopener">GitHub</a>
+        <span>TS/SCI w/ CI Polygraph</span>
+      </div>
+      <a class="cta" href="mailto:Davidtatecarroll@outlook.com">Get in touch</a>
+    </header>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="role">
+        <div class="when">Feb 2026 – Present</div>
+        <div>
+          <h3>Lead Engineer · <span class="org">PRIA Technologies</span></h3>
+          <ul>
+            <li>Established the engineering culture from the ground up: code reviews, sprint planning, CI/CD, and branch protection.</li>
+            <li>Built a multi-LLM deliberation engine orchestrating Claude, GPT-5, and Perplexity, plus an adaptive RAG pipeline reaching 0.95 recall.</li>
+            <li>Delivered a 3D Monte Carlo explorer and 100% API test coverage across 248 routes; mentored junior engineers into shipping developers.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="when">2025 – 2026</div>
+        <div>
+          <h3>Head of Engineering &amp; Co-Founder · <span class="org">Prometheus Intelligence</span></h3>
+          <ul>
+            <li>Built an in-memory vector reasoning layer with sub-millisecond decision latency and pivoted the platform to commodity Android edge devices.</li>
+            <li>Delivered for the U.S. Army Operational Test Command.</li>
+            <li>Helped turn a struggling venture into a multi-year, multimillion-dollar contract.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="when">2023 – 2025</div>
+        <div>
+          <h3>Staff AI Engineer → Lead → Senior Cyber · <span class="org">CACI International</span></h3>
+          <ul>
+            <li>Built CACI Chat, a secure LLM platform on AWS GovCloud for classified environments.</li>
+            <li>Designed RAG systems that improved accuracy by 40% and LLM-powered RMF automation that cut ATO timelines by 70%.</li>
+            <li>Delivered compliance dashboards for NAVAIR and NSA programs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="when">2019 – 2023</div>
+        <div>
+          <h3>Cyber Warfare Operator · <span class="org">United States Air Force</span></h3>
+          <ul>
+            <li>Distinguished graduate of the Cyber Warfare schoolhouse; led cybersecurity operations across Europe and Africa.</li>
+            <li>Tiger team lead supporting Operation Allies Refuge, the largest U.S. military airlift in history.</li>
+            <li>Junior Technician of the Year; multiple Air and Space Achievement Medals and the Humanitarian Service Medal; promoted Below the Zone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="when">2026 – Present</div>
+        <div>
+          <h3>Co-Founder · <span class="org">PeachState AI</span></h3>
+          <ul>
+            <li>Applies AI and machine learning to surface arbitrage opportunities and increase EBITDA across portfolio companies for private equity firms and VCs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>AI &amp; ML</h3>
+          <div class="tags">
+            <span class="tag">Multi-LLM Orchestration</span>
+            <span class="tag">RAG Pipelines</span>
+            <span class="tag">Edge Inference</span>
+            <span class="tag">Vector Databases</span>
+            <span class="tag">Quantized Models</span>
+            <span class="tag">Claude / GPT-5 / Bedrock</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Full Stack</h3>
+          <div class="tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">Go</span>
+            <span class="tag">React / Next.js</span>
+            <span class="tag">Node.js / FastAPI</span>
+            <span class="tag">Prisma / PostgreSQL</span>
+            <span class="tag">Three.js</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Infrastructure &amp; Security</h3>
+          <div class="tags">
+            <span class="tag">AWS / GovCloud</span>
+            <span class="tag">Kubernetes / Docker</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">DoD RMF / ATO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Certifications &amp; Education</h2>
+      <ul class="cert-list">
+        <li>FINRA Series 65 — Investment Adviser Law</li>
+        <li>CKAD — Certified Kubernetes Application Developer</li>
+        <li>VMware VCP — Data Center Virtualization</li>
+        <li>CompTIA Cloud+ / CCAP Stackable</li>
+        <li>Microsoft Azure Fundamentals</li>
+        <li>GitLab Certified Security Specialist</li>
+        <li>LPI Linux Essentials</li>
+        <li>B.S. Cloud Computing — Western Governors University</li>
+        <li>USAF Cyber Warfare — Distinguished Graduate</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Also</h2>
+      <p class="also">
+        Founder of <strong>IT Otter Services</strong> (clients including Walmart, Hobby Lobby,
+        Valvoline, and TX DOT) · Led AI at <strong>AegisAI</strong>, building an AI-assisted 911
+        dispatch system · Investor and Technical Advisor at <strong>Let's Go Pickleball</strong> ·
+        Appointed to the <strong>Economic Development Board, City of Newnan</strong>.
+      </p>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Tate Carroll · <a href="/">Return to tatecarroll.com</a></p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
