@@ -217,42 +217,19 @@ function isMusicPlaying() {
 // ENTRY GATE - "Are you lame?" self-select
 // ============================================
 
-const ENTRY_CHOICE_KEY = 'tc-entry-choice';
-
 function setupEntryGate() {
   const gate = document.getElementById('entry-gate');
   if (!gate) return;
 
-  // Returning "cool" visitors skip the gate entirely so repeat
-  // navigation isn't annoying.
-  let priorChoice = null;
-  try {
-    priorChoice = localStorage.getItem(ENTRY_CHOICE_KEY);
-  } catch (e) {
-    // localStorage may be unavailable (private mode); just show the gate.
-  }
-
-  if (priorChoice === 'cool') {
-    gate.style.display = 'none';
-    return;
-  }
-
+  // The gate shows on every visit — no persistence, no skipping.
   const dismissGate = () => {
     gate.classList.add('fade-out');
     setTimeout(() => { gate.style.display = 'none'; }, 600);
   };
 
-  const remember = (value) => {
-    try { localStorage.setItem(ENTRY_CHOICE_KEY, value); } catch (e) { /* ignore */ }
-  };
-
-  document.getElementById('gate-cool').addEventListener('click', () => {
-    remember('cool');
-    dismissGate();
-  });
+  document.getElementById('gate-cool').addEventListener('click', dismissGate);
 
   document.getElementById('gate-lame').addEventListener('click', () => {
-    remember('serious');
     window.location.href = '/serious';
   });
 }
